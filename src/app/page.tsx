@@ -1,7 +1,12 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 
-export default function Home() {
+export default async function Home() {
+  
+  const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost'}/api/hello`);
+  const json = await data.json();
+
+
   return (
     <main className={styles.main}>
       <div className={styles.description}>
@@ -11,7 +16,7 @@ export default function Home() {
         </p>
         <div>
           <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+            href="#"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -29,14 +34,7 @@ export default function Home() {
       </div>
 
       <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+        <h1>{json.message}</h1>
       </div>
 
       <div className={styles.grid}>
