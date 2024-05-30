@@ -2,16 +2,15 @@
 
 import Image from "next/image";
 import styles from "./page.module.css";
-import {useEffect} from "react";
+import {useEffect,useState} from "react";
 
 export default function Home() {
+  const [message, setMessage] = useState(null);
   
-
-  let message = ``;
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost'}/api/hello`)
     .then((response) => response.json().then((json) => {
-      message = json.message;
+      setMessage(json.message);
     }));
   }, []);
 
