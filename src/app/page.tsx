@@ -1,10 +1,19 @@
+'use client';
+
 import Image from "next/image";
 import styles from "./page.module.css";
+import {useEffect} from "react";
 
-export default async function Home() {
+export default function Home() {
   
-  const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost'}/api/hello`);
-  const json = await data.json();
+
+  let message = ``;
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost'}/api/hello`)
+    .then((response) => response.json().then((json) => {
+      message = json.message;
+    }));
+  }, []);
 
 
   return (
@@ -34,7 +43,7 @@ export default async function Home() {
       </div>
 
       <div className={styles.center}>
-        <h1>{json.message}</h1>
+        <h1>{message}</h1>
       </div>
 
       <div className={styles.grid}>
